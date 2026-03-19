@@ -1,0 +1,7 @@
+Model,Train Acc,Test Acc,Gap,Status
+Logistic Regression,94.53%,91.50%,3.03%,✅ Aman
+Random Forest,95.52%,91.99%,3.53%,✅ Aman
+Gradient Boosting,96.97%,93.20%,3.77%,✅ Aman
+ANN,96.73%,93.45%,3.28%,✅ Aman
+SVM,95.24%,93.20%,2.04%,✅ Aman
+XGBoost,96.91%,92.72%,4.19%,✅ Aman
