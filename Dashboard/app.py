@@ -312,13 +312,14 @@ def overview(df: pd.DataFrame, model_df: Optional[pd.DataFrame]):
         f"Artinya responden paling positif pada aspek {BUSINESS_NAMES.get(strongest['Variabel'], strongest['Variabel'])}. "
         f"Sebaliknya, area terlemah ada pada <b>{weakest['Variabel']}</b> dengan rata-rata <b>{weakest['Rata-rata']:.2f}</b>, sehingga ini layak menjadi prioritas perbaikan."
     )
-    if pd.notna(bi_mean):
-        if bi_mean >= 3.4:
-            insight_box("Makna bisnis. Niat adopsi sudah relatif kuat. Fokus strategi bisa diarahkan ke konversi, cross sell, dan retensi.", "takeaway")
-        elif bi_mean >= 2.8:
-            insight_box("Makna bisnis. Niat adopsi berada di level menengah. Pasar masih potensial, tetapi butuh dorongan yang lebih jelas pada faktor penghambat.", "risk")
-        else:
-            insight_box("Makna bisnis. Niat adopsi masih lemah. Perusahaan perlu memperbaiki value proposition, trust, dan pengalaman awal pengguna.", "risk")
+    if "Pseudo_Label" in df.columns:
+        dominant = df["Pseudo_Label"].value_counts().idxmax()
+    if dominant == "BI-High":
+        insight_box("Makna bisnis. Mayoritas responden berada pada segmen High. Ini menunjukkan kesiapan adopsi sudah kuat dan pasar siap untuk strategi konversi dan ekspansi.", "takeaway")
+    elif dominant == "BI-Moderate":
+        insight_box("Makna bisnis. Mayoritas responden berada pada segmen Moderate. Pasar masih butuh dorongan untuk meningkatkan kepercayaan dan memperjelas manfaat fintech.", "risk")
+    else:
+        insight_box("Makna bisnis. Mayoritas responden berada pada segmen Low. Adopsi masih tertahan dan perlu fokus pada edukasi serta trust building.", "risk")
     st.markdown('</div>', unsafe_allow_html=True)
 
 def perception(df: pd.DataFrame):
